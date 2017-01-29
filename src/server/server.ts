@@ -40,12 +40,23 @@ export class Server {
                     winston.error(e);
                     new Response(stream).sendData(400);
                 }
+            });
+            stream.on("error", (e) => {
+                winston.error("Client error", e);
             })
         })
 
         server.listen(port, () => {
             winston.info('Server bound on port ' + port);
         });
+
+        server.on('error', (e) => {
+            winston.error("Server error", e);
+            setTimeout(() => {
+                winston.info('Restarting server');
+                this.Start();
+            }, 15 * 1000)
+        })
     }
 
     public RegisterController(path: string, controller: Controller) {
