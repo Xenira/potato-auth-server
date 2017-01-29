@@ -8,5 +8,6 @@ winston.configure({
     ]
 })
 
-export { Server, Controller } from './server/server';
+export { Server } from './server/server';
+export { Controller } from './server/controller';
 
