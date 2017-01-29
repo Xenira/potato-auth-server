@@ -6,6 +6,7 @@ Purpose of the Auth and DB server is to authenticate clients at the *top-level* 
 > 2. [Controller](#controller)
 > 3. [Response](#response)
 > 4. [TLS and Certificates](#tls)
+
 ## Server
 The server accepts incomming connections from authorised clients. Messages sent by the client must be in the following format.
 ```ts
@@ -26,7 +27,7 @@ The server accepts incomming connections from authorised clients. Messages sent 
 ```ts
 constructor(key: string, cert: string, clientCerts: string[])
 ```
-#### Excample
+#### Example
 ```ts
 import { Server } from 'potato-auth-server';
 
@@ -46,7 +47,7 @@ var server = new Server(key, cert, clientCerts);
 ```ts
 RegisterController(path: string, controller: Controller)
 ```
-#### Excample
+#### Example
 ```ts
 server.RegisterController('echo', new Controller().setGET((data, res) => {
     res.sendData(200, data);
@@ -57,7 +58,7 @@ server.RegisterController('echo', new Controller().setGET((data, res) => {
 ```ts
 RemoveController(path: string)
 ```
-#### Excample
+#### Example
 ```ts
 server.RegisterController('echo', new Controller().setGET((data, res) => {
     res.sendData(200, data);
@@ -75,7 +76,7 @@ addPOST(callback: (data, res: Response) => void): Controller
 addPUT(callback: (data, res: Response) => void): Controller
 addDELETE(callback: (data, res: Response) => void): Controller
 ```
-### Excample
+#### Example
 ```ts
 new Controller().addGET((data, res) => {
     // This echos the data back to the client
@@ -101,5 +102,6 @@ error(code?: number, e?: Error): void // sends parameters. code defaults to 400,
 #### Throws when
 - Status code is invalid
 - Response was already sent
+
 ## TLS and Certificates <a name="tls"></a>
 The DB Server should only be accessable from the backend servers (tl connector and game server). Make sure to load certificates for every server that should be able to connect to this server.
