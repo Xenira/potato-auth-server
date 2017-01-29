@@ -1,0 +1,27 @@
+{
+  "name": "potato-game-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "/lib/index.js",
+  "scripts": {
+    "prepublish": "tsc -d",
+    "start": "nodemon",
+    "test": "nodemon --watch **/*[sS]pec.ts --exec jasmine-ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Xenira/potato.git/game-server"
+  },
+  "author": "Xenira",
+  "license": "MIT",
+  "devDependencies": {
+    "jasmine": "^2.5.3",
+    "nodemon": "^1.11.0",
+    "ts-node": "^2.0.0",
+    "typescript": "^2.1.5"
+  },
+  "dependencies": {
+    "@types/jasmine": "^2.5.41",
+    "@types/winston": "^2.2.0"
+  }
+}
