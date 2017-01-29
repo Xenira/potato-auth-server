@@ -1,4 +1,6 @@
-# Auth and DB Server
+# [Potato Game Server Project](https://github.com/Xenira/potato)
+This repo is part of the Potato Game Server. [Click here](https://github.com/Xenira/potato) to go to the main repo.
+## Auth and DB Server
 
 Purpose of the Auth and DB server is to authenticate clients at the *top-level* connector and provide Data from the Database to the gameservers.
 > ### Table of Contents
