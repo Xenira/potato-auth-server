@@ -10,4 +10,4 @@ winston.configure({
 
 export { Server } from './server/server';
 export { Controller } from './server/controller';
-
+export { Database, IQuery } from './server/core/database';

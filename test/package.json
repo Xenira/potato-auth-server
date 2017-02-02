@@ -1,0 +1,21 @@
+{
+  "name": "auth-server-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/aws-sdk": "0.0.42",
+    "@types/winston": "^2.2.0",
+    "nodemon": "^1.11.0",
+    "ts-node": "^2.0.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.9.0",
+    "winston": "^2.3.1"
+  }
+}
