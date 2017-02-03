@@ -24,6 +24,7 @@
     "jasmine": "^2.5.3",
     "nodemon": "^1.11.0",
     "ts-node": "^2.0.0",
+    "tsc": "^1.20150623.0",
     "typescript": "^2.1.5"
   },
   "dependencies": {

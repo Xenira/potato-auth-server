@@ -4,6 +4,14 @@ import * as winston from 'winston';
 
 export class DynamoDatabase extends Database {
     db = new DynamoDB();
+    constructor(serversDB: string, playersDB: string) {
+        super(serversDB, playersDB)
+        this.db.listTables((err, data) => {
+            winston.info(JSON.stringify(data));
+            winston.info(JSON.stringify(err));
+        })
+    }
+
     public ExecuteCommand(query: IQuery) {
         switch (query.function) {
             case 'SELECT':
@@ -51,9 +59,13 @@ export class DynamoDatabase extends Database {
         this.db.batchGetItem({
             RequestItems: {
                 [this.tables[query.from]]: {
-                    Keys: [query.where]
+                    Keys: query.where
                 }
             }
         }, callback);
+    }
+
+    updateItem(query: IQuery, callback:(error, data) => void) {
+
     }
 }
