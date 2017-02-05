@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.9.0",
+    "dynamodb-data-types": "^3.0.0",
     "winston": "^2.3.1"
   }
 }

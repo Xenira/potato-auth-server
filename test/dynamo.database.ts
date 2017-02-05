@@ -1,71 +1,47 @@
 import { DynamoDB } from 'aws-sdk';
-import { Database, IQuery } from '../src';
+import { Database, IPlayerData, IGameServerData } from '../src';
+import { AttributeValue } from 'dynamodb-data-types';
 import * as winston from 'winston';
 
 export class DynamoDatabase extends Database {
     db = new DynamoDB();
-    constructor(serversDB: string, playersDB: string) {
-        super(serversDB, playersDB)
+    keys: { [key:string]: any } = {};
+    constructor(serverTable: string, playerTable: string,
+        private serverKey: string,
+        private playerKey: string) {
+
+        super(serverTable, playerTable);
+
         this.db.listTables((err, data) => {
             winston.info(JSON.stringify(data));
             winston.info(JSON.stringify(err));
-        })
-    }
-
-    public ExecuteCommand(query: IQuery) {
-        switch (query.function) {
-            case 'SELECT':
-                winston.warn(`Selecting from ${this.tables[query.from]} without getting response is not supported.`);
-                break;
-            case 'UPDATE':
-
-                break;
-            case 'DELETE':
-
-                break;
-        }
-    }
-    public QueryRows(query: IQuery, callback: (error, row: any) => void) {
-
-    }
-    public QuerySingleResult(query: IQuery, callback: (error, row: any) => void) {
-        switch (query.function) {
-            case 'SELECT':
-                this.getItem(query, callback);
-                break;
-            case 'UPDATE':
-
-                break;
-            case 'DELETE':
-
-                break;
-        }
-    }
-
-    getItem(query: IQuery, callback:(error, data) => void) {
-        this.db.getItem({
-            TableName: this.tables[query.from],
-            Key: query.where[0]
-        }, (err, data) => {
-            if (err) {
-                callback(err, null);
-            }
-
-            callback(null, data);
         });
     }
 
-    getItems(query: IQuery, callback:(error, data) => void) {
-        this.db.batchGetItem({
-            RequestItems: {
-                [this.tables[query.from]]: {
-                    Keys: query.where
-                }
-            }
-        }, callback);
+    GetPlayer(key: string, callback: (err: any, data: IPlayerData) => void) {
+        let selector = AttributeValue.wrap({ [this.serverKey]: key });
+        let query: DynamoDB.GetItemInput = {
+            TableName: this.tables['player'],
+            Key: selector
+        };
+        this.getItem(query, (e, d) => { winston.info(d); });
+    }
+    GetGameServer(key: string, callback: (err: any, data: IGameServerData) => void) {
+
+    }
+    GetGameServers(callback: (err: any, data: IGameServerData[]) => void) {
+        return [];
     }
 
-    updateItem(query: IQuery, callback:(error, data) => void) {
+    getItem(query: DynamoDB.GetItemInput, callback:(error, data) => void) {
+        this.db.getItem(query, callback);
+    }
 
+    getItems(query: DynamoDB.BatchGetItemInput, callback:(error, data) => void) {
+        this.db.batchGetItem(query, callback);
+    }
+
+    updateItem(query: DynamoDB.UpdateItemInput, callback:(error, data) => void) {
+        this.db.updateItem(query, callback);
     }
 }

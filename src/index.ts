@@ -1,4 +1,5 @@
 import * as winston from 'winston';
+import { IPlayerData } from './server/core/database';
 
 // Set up logging
 winston.configure({
@@ -10,4 +11,4 @@ winston.configure({
 
 export { Server } from './server/server';
 export { Controller } from './server/controller';
-export { Database, IQuery } from './server/core/database';
+export { Database, IGameServerData, IPlayerData } from './server/core/database';

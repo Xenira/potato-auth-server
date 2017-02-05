@@ -1,18 +1,23 @@
 
-export interface IQuery {
-    function: 'SELECT' | 'UPDATE' | 'DELETE';
-    where: [{ [key:string]:any }];
-    from: string;
+export interface IPlayerData {
+    session: string;
+    key: string;
+    data: any;
+}
+
+export interface IGameServerData {
+    key: string
+    data: any
 }
 
 export abstract class Database {
     protected tables: { [key:string]: string } = {};
-
-    constructor(serversDB: string, playersDB: string) {
-        this.tables["servers"] = serversDB;
-        this.tables["players"] = playersDB;
+    constructor (serverTable: string, playerTable: string) {
+        this.tables['server'] = serverTable;
+        this.tables['player'] = playerTable;
     }
-    public abstract ExecuteCommand(query: IQuery);
-    public abstract QueryRows(query: IQuery, callback: (error, row: any) => void);
-    public abstract QuerySingleResult(query: IQuery, callback: (error, result: any) => void);
+
+    abstract GetPlayer(key: string, callback: (err: any, data: IPlayerData) => void);
+    abstract GetGameServer(key: string, callback: (err: any, data: IGameServerData) => void);
+    abstract GetGameServers(callback: (err: any, data: IGameServerData[]) => void);
 }
