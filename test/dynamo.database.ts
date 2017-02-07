@@ -6,15 +6,17 @@ import * as winston from 'winston';
 export class DynamoDatabase extends Database {
     db = new DynamoDB();
     keys: { [key:string]: any } = {};
-    constructor(serverTable: string, playerTable: string,
+    constructor(region: string, serverTable: string, playerTable: string,
         private serverKey: string,
         private playerKey: string) {
 
         super(serverTable, playerTable);
+        this.db.config.region = region;
 
         this.db.listTables((err, data) => {
             winston.info(JSON.stringify(data));
             winston.info(JSON.stringify(err));
+            winston.info('Done');
         });
     }
 

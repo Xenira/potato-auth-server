@@ -8,7 +8,7 @@ let cert: string = fs.readFileSync(__dirname + "/ssl/auth-test-cert.pem", "utf-8
 
 readCertificates();
 let server: Server = new Server(key, cert, clientCerts);
-let db: DynamoDatabase = new DynamoDatabase("abc", "def");
+let db: DynamoDatabase = new DynamoDatabase("eu-west-1", "abc", "def", "id", "mail");
 server.RegisterController('echo', new Controller().addGET((data, res) => {
     res.sendData(200, data);
 }));

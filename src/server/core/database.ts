@@ -6,8 +6,8 @@ export interface IPlayerData {
 }
 
 export interface IGameServerData {
-    key: string
-    data: any
+    key: string;
+    data: any;
 }
 
 export abstract class Database {
